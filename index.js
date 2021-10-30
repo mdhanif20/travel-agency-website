@@ -18,11 +18,18 @@ async function run(){
         await client.connect();
         const database = client.db("travelsInfo");
         const logo = database.collection("logo");
+        const sliders = database.collection("sliders");
         app.get('/logo',async(req,res)=>{
             const getLogo = logo.find({});
             const result = await getLogo.toArray();
             res.send(result);
         })
+        app.get("/sliders", async(req,res)=>{
+          const getSliders = sliders.find({});
+          const result = await getSliders.toArray();
+          res.send(result);
+        })
+        
     }
     finally{
         // await client.close();
