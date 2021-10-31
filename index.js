@@ -21,26 +21,40 @@ async function run(){
         const sliders = database.collection("sliders");
         const services = database.collection("services");
         const popularTour = database.collection("popularTour");
+        const booking = database.collection("booking");
+        // logo get 
         app.get('/logo',async(req,res)=>{
             const getLogo = logo.find({});
             const result = await getLogo.toArray();
             res.send(result);
         })
+        // sliders data get 
         app.get("/sliders", async(req,res)=>{
           const getSliders = sliders.find({});
           const result = await getSliders.toArray();
           res.send(result);
         })
+        // service area data get 
         app.get("/services", async(req,res)=>{
           const getServices = services.find({});
           const result = await getServices.toArray();
           res.send(result);
         })
+        // popular area data get 
         app.get("/popular",async(req,res)=>{
           const getPopularTour = popularTour.find({});
           const result = await getPopularTour.toArray();
           res.send(result);
         })
+        // booking set 
+        app.post("/booking", async(req,res)=>{
+          const customer = req.body;
+          const result = await booking.insertOne(customer);
+          console.log(result);
+          res.json(result);
+        })
+        // booking get 
+        
     }
     finally{
         // await client.close();
