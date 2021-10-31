@@ -19,6 +19,7 @@ async function run(){
         const database = client.db("travelsInfo");
         const logo = database.collection("logo");
         const sliders = database.collection("sliders");
+        const services = database.collection("services");
         app.get('/logo',async(req,res)=>{
             const getLogo = logo.find({});
             const result = await getLogo.toArray();
@@ -27,6 +28,11 @@ async function run(){
         app.get("/sliders", async(req,res)=>{
           const getSliders = sliders.find({});
           const result = await getSliders.toArray();
+          res.send(result);
+        })
+        app.get("/services", async(req,res)=>{
+          const getServices = services.find({});
+          const result = await getServices.toArray();
           res.send(result);
         })
         
