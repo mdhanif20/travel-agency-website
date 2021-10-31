@@ -54,6 +54,14 @@ async function run(){
           res.json(result);
         })
         // booking get 
+        app.get("/booking/:id",async(req,res)=>{
+          const id = req.params.id;
+          console.log(id);
+          const query = {_id:ObjectId(id)}
+          const customer = await booking.findOne(query);
+          res.send(customer);
+          console.log(customer);
+        })
         
     }
     finally{
