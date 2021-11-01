@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors');
+const ObjectId = require('mongodb').ObjectId;
 const { MongoClient } = require('mongodb');
 // const axios = require('axios').default;
 require('dotenv').config()
@@ -50,17 +51,24 @@ async function run(){
         app.post("/booking", async(req,res)=>{
           const customer = req.body;
           const result = await booking.insertOne(customer);
-          console.log(result);
+          // console.log(result);
           res.json(result);
         })
         // booking get 
-        app.get("/booking/:id",async(req,res)=>{
-          const id = req.params.id;
-          console.log(id);
-          const query = {_id:ObjectId(id)}
-          const customer = await booking.findOne(query);
+        app.get("/manageBooking",async(req,res)=>{
+          const getCustomer = booking.find({});
+          const customer = await getCustomer.toArray();
           res.send(customer);
-          console.log(customer);
+        })
+        //DELETE API
+        app.delete("/manageBooking/:id",async(req,res)=>{
+          const id = req.params.id;
+          console.log("delet id is",id);
+          const query = {_id: ObjectId(id)};
+          console.log("ei id ta delet korte hoba.",query)
+          const result = await booking.deleteOne(query);
+          console.log("deleted id",result);
+          res.json(result);
         })
         
     }
